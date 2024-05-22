@@ -1,6 +1,0 @@
-@Jmeza44.EtherBlog.WebAPI_HostAddress = http://localhost:5164
-
-GET {{Jmeza44.EtherBlog.WebAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

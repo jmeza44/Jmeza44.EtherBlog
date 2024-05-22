@@ -1,25 +1,28 @@
-var builder = WebApplication.CreateBuilder(args);
+using Jmeza44.EtherBlog.Application;
+using Jmeza44.EtherBlog.Infrastructure;
+using Jmeza44.EtherBlog.WebApi;
+using Jmeza44.EtherBlog.WebApi.Data;
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+internal class Program
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    private static async Task Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.AddAspNetServices(builder.Configuration)
+                        .AddApplication()
+                        .AddInfrastructure(builder.Configuration)
+                        .AddFluentValidations()
+                        .AddSwagger()
+                        .AddAuthenticationServices(builder.Configuration)
+                        .AddInMemoryCache(builder.Configuration);
+
+        var app = builder.Build();
+
+        app.ConfigurePipeline();
+
+        await app.MigrateApplicationDatabaseAsync();
+
+        app.Run();
+    }
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
