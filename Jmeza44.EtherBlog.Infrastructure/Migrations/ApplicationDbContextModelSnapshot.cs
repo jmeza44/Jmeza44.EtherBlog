@@ -22,6 +22,74 @@ namespace Jmeza44.EtherBlog.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Jmeza44.EtherBlog.Domain.Entities.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedByAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("Jmeza44.EtherBlog.Domain.Entities.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedByAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Posts");
+                });
+
             modelBuilder.Entity("Jmeza44.EtherBlog.Domain.Entities.WeatherForecast", b =>
                 {
                     b.Property<int>("Id")
@@ -39,14 +107,12 @@ namespace Jmeza44.EtherBlog.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastModifiedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("LastModifiedByAt")
@@ -63,6 +129,22 @@ namespace Jmeza44.EtherBlog.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("WeatherForecast");
+                });
+
+            modelBuilder.Entity("Jmeza44.EtherBlog.Domain.Entities.Comment", b =>
+                {
+                    b.HasOne("Jmeza44.EtherBlog.Domain.Entities.Post", "Post")
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("Jmeza44.EtherBlog.Domain.Entities.Post", b =>
+                {
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

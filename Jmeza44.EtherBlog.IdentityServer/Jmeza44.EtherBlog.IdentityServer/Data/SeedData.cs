@@ -9,12 +9,32 @@ namespace IdentityServer.Data
 {
     public class SeedData
     {
+        public static async Task SeedRolesAsync(WebApplication app)
+        {
+            using var scope = app.Services.CreateScope();
+
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            // Seed roles
+            var rolesToSeed = new[] { "Admin", "Editor", "Viewer" };
+            foreach (var role in rolesToSeed)
+            {
+                var roleExist = await roleManager.RoleExistsAsync(role);
+                if (!roleExist)
+                {
+                    await roleManager.CreateAsync(new IdentityRole(role));
+                    Log.Debug($"Role '{role}' created");
+                }
+                else
+                {
+                    Log.Debug($"Role '{role}' already exists");
+                }
+            }
+        }
+
         public static async Task SeedUsersAsync(WebApplication app)
         {
-            if (app is null)
-            {
-                throw new ArgumentNullException(nameof(app));
-            }
+            ArgumentNullException.ThrowIfNull(app);
 
             using var scope = app.Services.CreateScope();
 
@@ -22,26 +42,17 @@ namespace IdentityServer.Data
             foreach (var defaultUser in defaultUsers)
             {
                 var user = new ApplicationUser { UserName = defaultUser.UserName, Email = defaultUser.Email, EmailConfirmed = true };
-                await SeedUserAsync(scope, user, defaultUser.Password);
+                await SeedUserAsync(scope, user, defaultUser.Password, defaultUser.RoleName);
             }
         }
 
-        private static async Task SeedUserAsync(IServiceScope scope, ApplicationUser userToAdd, string password)
+        private static async Task SeedUserAsync(IServiceScope scope, ApplicationUser userToAdd, string password, string roleName)
         {
-            if (scope is null)
-            {
-                throw new ArgumentNullException(nameof(scope));
-            }
-
-            if (userToAdd is null)
-            {
-                throw new ArgumentNullException(nameof(userToAdd), $"'{nameof(userToAdd)}' cannot be null or empty.");
-            }
-
-            if (string.IsNullOrEmpty(password))
-            {
-                throw new ArgumentException($"'{nameof(password)}' cannot be null or empty.", nameof(password));
-            }
+            ArgumentNullException.ThrowIfNull(scope);
+            ArgumentNullException.ThrowIfNull(userToAdd);
+            ArgumentNullException.ThrowIfNull(userToAdd.UserName);
+            ArgumentNullException.ThrowIfNull(password);
+            ArgumentNullException.ThrowIfNull(roleName);
 
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
@@ -56,11 +67,16 @@ namespace IdentityServer.Data
                 }
 
                 Log.Debug($"{userToAdd.UserName} created");
+
+                await userManager.AddToRoleAsync(userToAdd, roleName);
             }
             else
             {
                 Log.Debug($"{userToAdd.UserName} already exists");
+
+                await userManager.AddToRoleAsync(userFound, roleName);
             }
+
         }
 
         public async static Task SeedIdentityConfigurationAsync(WebApplication app)

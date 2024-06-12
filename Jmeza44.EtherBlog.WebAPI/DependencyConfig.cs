@@ -3,6 +3,7 @@ using Jmeza44.EtherBlog.Application.Common.AppSettingsMapping;
 using Jmeza44.EtherBlog.Application.Common.Exceptions;
 using Jmeza44.EtherBlog.Application.Common.Interfaces;
 using Jmeza44.EtherBlog.WebApi.Common.Authentication;
+using Jmeza44.EtherBlog.WebApi.Common.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -13,6 +14,7 @@ namespace Jmeza44.EtherBlog.WebApi
         public static IServiceCollection AddConfigurationMapping(this IServiceCollection services, IConfiguration config)
         {
             services.Configure<AppSettings>(config.GetSection("App"));
+            services.Configure<AuthenticationOptions>(config.GetSection("App:AuthenticationOptions"));
 
             return services;
         }
@@ -97,11 +99,11 @@ namespace Jmeza44.EtherBlog.WebApi
             app.UseCors(policyName);
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
             app.MapControllers();
 
             return app;
         }
-
 
         private static AuthenticationOptions BindAuthenticationOptions(IConfiguration config)
         {

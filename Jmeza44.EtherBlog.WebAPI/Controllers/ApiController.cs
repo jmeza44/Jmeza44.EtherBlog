@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
+# nullable disable
+
 namespace Jmeza44.EtherBlog.WebApi.Controllers
 {
     [ApiController]

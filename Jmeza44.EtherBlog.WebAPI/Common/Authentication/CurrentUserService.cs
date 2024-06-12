@@ -49,9 +49,9 @@ namespace Jmeza44.EtherBlog.WebApi.Common.Authentication
 
             var claims = response.Claims;
 
-            var emailClaim = claims.FirstOrDefault(c => c.Type == "email");
+            var identifierClaim = claims.FirstOrDefault(c => c.Type == "email") ?? claims.FirstOrDefault(c => c.Type == "sub");
 
-            return emailClaim?.Value ?? null;
+            return identifierClaim?.Value ?? null;
         }
 
 

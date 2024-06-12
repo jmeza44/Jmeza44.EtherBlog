@@ -6,7 +6,6 @@ namespace Jmeza44.EtherBlog.Application.Main.WeatherForecastRequest.Commands.Cre
     {
         public CreateForecastCommandValidator()
         {
-
             RuleForEach(command => command.WeatherForecasts)
                 .NotNull()
                 .NotEmpty()

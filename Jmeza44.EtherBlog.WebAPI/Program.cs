@@ -9,7 +9,8 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddAspNetServices(builder.Configuration)
+        builder.Services.AddConfigurationMapping(builder.Configuration)
+                        .AddAspNetServices(builder.Configuration)
                         .AddApplication()
                         .AddInfrastructure(builder.Configuration)
                         .AddFluentValidations()

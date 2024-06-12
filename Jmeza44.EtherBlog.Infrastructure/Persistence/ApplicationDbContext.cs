@@ -2,7 +2,6 @@
 using Jmeza44.EtherBlog.Domain.Entities;
 using Jmeza44.EtherBlog.Domain.Entities.BaseEntities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
 namespace Jmeza44.EtherBlog.Infrastructure.Persistence
@@ -17,6 +16,8 @@ namespace Jmeza44.EtherBlog.Infrastructure.Persistence
         }
 
         public DbSet<WeatherForecast> WeatherForecast { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

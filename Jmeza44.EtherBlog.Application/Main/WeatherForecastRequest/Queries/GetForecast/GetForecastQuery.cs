@@ -24,6 +24,7 @@ namespace Jmeza44.EtherBlog.Application.Main.WeatherForecastRequest.Queries.GetF
             QueryCacheOptions = new MemoryCacheEntryOptions() { SlidingExpiration = TimeSpan.FromMinutes(2) };
         }
     }
+
     public class GetForecastQueryHandler : IRequestHandler<GetForecastQuery, List<WeatherForecastDto>>
     {
         private readonly IApplicationDbContext _dbContext;
