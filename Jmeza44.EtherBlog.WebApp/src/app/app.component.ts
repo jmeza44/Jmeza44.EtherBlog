@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './shared/services/auth-service.service';
 
 @Component({
   selector: 'ether-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'EtherBlogWebApp';
+
+  constructor(public authService: AuthService) {}
+
+  signIn() {
+    this.authService.login();
+  }
 }
