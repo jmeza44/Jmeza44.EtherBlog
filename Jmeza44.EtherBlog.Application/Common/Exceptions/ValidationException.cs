@@ -21,5 +21,4 @@ namespace Jmeza44.EtherBlog.Application.Common.Exceptions
 
         public IDictionary<string, string[]> Errors { get; }
     }
-
 }

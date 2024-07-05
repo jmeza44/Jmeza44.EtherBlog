@@ -1,0 +1,19 @@
+<div class="landing-container mat-elevation-z8">
+  <div class="landing-content">
+    <div class="text-content">
+      <h1>Please, sign in!</h1>
+      <p>
+        Discover amazing articles, write your own stories, and engage with a vibrant community.
+        Whether you're here to read, write, or comment, we have something for everyone.
+      </p>
+      <div class="action-buttons">
+        <button mat-raised-button color="primary" *ngIf="!authService.isLoggedIn" (click)="authService.login()">Sign
+          In</button>
+      </div>
+    </div>
+    <div class="image-content">
+      <img src="assets/img/account-access.jpg"
+        alt="Blog Image" class="landing-image">
+    </div>
+  </div>
+</div>

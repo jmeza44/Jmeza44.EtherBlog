@@ -1,4 +1,4 @@
-namespace IdentityServer.Pages.Login
+namespace Jmeza44.EtherBlog.IdentityServer.Pages.Account.Login
 {
     public class LoginOptions
     {

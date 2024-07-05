@@ -4,6 +4,6 @@ export interface Post {
   content: string;
   createdBy: string;
   createdAt: Date;
-  lastModifiedBy?: string | null; // Optional field, represented by '?' in TypeScript
-  lastModifiedByAt?: Date | null; // Optional field
+  lastModifiedBy?: string | null;
+  lastModifiedByAt?: Date | null;
 }

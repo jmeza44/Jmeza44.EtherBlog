@@ -29,9 +29,15 @@ export class AuthService {
     this.userManager.signinRedirect();
   }
 
-  async handleCallback() {
+  async handleSignInCallback() {
     const user = await this.userManager.signinRedirectCallback();
     this.currentUser = user;
+    console.log(this.currentUser);
+  }
+
+  async handleSignOutCallback() {
+    await this.userManager.signoutCallback();
+    this.currentUser = null;
   }
 
   logout() {
@@ -44,5 +50,17 @@ export class AuthService {
 
   get user(): User | null {
     return this.currentUser;
+  }
+
+  get isViewer(): boolean {
+    return this.user?.profile['role'] === 'Viewer';
+  }
+
+  get isEditor(): boolean {
+    return this.user?.profile['role'] === 'Editor';
+  }
+
+  get isAdmin(): boolean {
+    return this.user?.profile['role'] === 'Admin';
   }
 }

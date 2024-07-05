@@ -1,0 +1,9 @@
+<div class="container">
+  <form (ngSubmit)="submitComment()">
+    <div class="form-group">
+      <label for="commentTextArea">Write your comment:</label>
+      <textarea id="commentTextArea" class="form-control" rows="4" [(ngModel)]="commentContent" name="commentContent" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Comment</button>
+  </form>
+</div>

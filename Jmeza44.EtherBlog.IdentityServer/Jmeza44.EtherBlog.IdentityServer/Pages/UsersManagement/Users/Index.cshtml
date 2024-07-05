@@ -1,0 +1,72 @@
+﻿@page
+@model Jmeza44.EtherBlog.IdentityServer.Pages.UsersManagement.Users.IndexModel
+@{
+    ViewData["Title"] = "Manage Users";
+}
+
+<div class="container mt-4">
+    <h2>Manage Users</h2>
+
+    @* Table to display users *@
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>
+                        <form asp-page-handler="UpdateRole" method="post">
+                            <input type="hidden" name="userId" value="@user.Id" />
+                            <select class="form-control" name="role">
+                                <option value="Admin" selected="@(user.Role == "Admin")">Admin</option>
+                                <option value="Viewer" selected="@(user.Role == "Viewer")">Viewer</option>
+                                <option value="Editor" selected="@(user.Role == "Editor")">Editor</option>
+                                <option value="" selected="@(user.Role == "")">None</option>
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-primary mt-2">Update Role</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-page-handler="DeleteUser" method="post">
+                            <input type="hidden" name="userId" value="@user.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @* Pagination *@
+    <nav aria-label="Users Pagination">
+        <ul class="pagination">
+            @if (Model.HasPreviousPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-page="./Users" asp-route-pageIndex="@(Model.PageIndex - 1)">Previous</a>
+                </li>
+            }
+            @for (var i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(Model.PageIndex == i ? "active" : "")">
+                    <a class="page-link" asp-page="./Users" asp-route-pageIndex="@i">@i</a>
+                </li>
+            }
+            @if (Model.HasNextPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-page="./Users" asp-route-pageIndex="@(Model.PageIndex + 1)">Next</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>

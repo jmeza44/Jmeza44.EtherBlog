@@ -38,7 +38,7 @@ namespace Jmeza44.EtherBlog.WebApi.Controllers.Post
 
         [HttpPost("Create")]
         [Authorize(Roles = "Editor")]
-        public async Task<ActionResult<bool>> Create(
+        public async Task<ActionResult<int>> Create(
             [FromBody] CreatePostCommand request)
         {
             var result = await Mediator.Send(request);
@@ -46,7 +46,7 @@ namespace Jmeza44.EtherBlog.WebApi.Controllers.Post
         }
 
         [HttpPut("Edit")]
-        [Authorize(Roles = "Admin, Editor")]
+        [Authorize(Roles = "Editor")]
         public async Task<ActionResult<bool>> Edit(
             [FromBody] EditPostCommand request)
         {

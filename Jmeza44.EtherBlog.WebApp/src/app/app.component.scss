@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.page-content {
+  display: block;
+  flex-grow: 1;
+  flex-shrink: 0;
+}

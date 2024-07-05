@@ -10,7 +10,7 @@ namespace Jmeza44.EtherBlog.WebApi.Controllers.Comment
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize] // Adjust as per your authorization requirements
+    [Authorize]
     public class CommentController : ApiController
     {
         [HttpGet("Post/{postId}")]
@@ -32,7 +32,7 @@ namespace Jmeza44.EtherBlog.WebApi.Controllers.Comment
 
         [HttpPut("Edit/{commentId}")]
         [Authorize(Roles = "Editor, Viewer")]
-        public async Task<ActionResult<bool>> EditComment(int commentId, [FromBody] EditCommentCommand command)
+        public async Task<ActionResult<CommentDto>> EditComment(int commentId, [FromBody] EditCommentCommand command)
         {
             command.Id = commentId;
             var result = await Mediator.Send(command);

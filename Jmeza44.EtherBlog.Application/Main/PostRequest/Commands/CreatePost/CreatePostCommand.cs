@@ -4,12 +4,12 @@ using MediatR;
 
 namespace Jmeza44.EtherBlog.Application.Main.PostRequest.Commands.CreatePost
 {
-    public class CreatePostCommand : IRequest<bool>
+    public class CreatePostCommand : IRequest<int>
     {
         public required string Title { get; set; }
         public required string Content { get; set; }
 
-        public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, bool>
+        public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, int>
         {
             private readonly IApplicationDbContext _dbContext;
 
@@ -18,7 +18,7 @@ namespace Jmeza44.EtherBlog.Application.Main.PostRequest.Commands.CreatePost
                 _dbContext = dbContext;
             }
 
-            public async Task<bool> Handle(CreatePostCommand request, CancellationToken cancellationToken)
+            public async Task<int> Handle(CreatePostCommand request, CancellationToken cancellationToken)
             {
                 var post = new Post
                 {
@@ -28,7 +28,7 @@ namespace Jmeza44.EtherBlog.Application.Main.PostRequest.Commands.CreatePost
 
                 _dbContext.Posts.Add(post);
                 var created = await _dbContext.SaveChangesAsync(cancellationToken);
-                return created > 0;
+                return post.Id;
             }
         }
     }

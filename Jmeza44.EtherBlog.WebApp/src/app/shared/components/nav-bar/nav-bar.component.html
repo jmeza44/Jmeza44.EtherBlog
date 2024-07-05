@@ -1,14 +1,21 @@
 <mat-toolbar color="primary">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Ethereum_logo_translucent.svg" alt="Logo" class="logo">
+  <a routerLink="/">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Ethereum_logo_translucent.svg" alt="Logo"
+      class="logo">
+  </a>
   <span class="spacer"></span>
   <button mat-button routerLink="/">Home</button>
-  <button mat-button routerLink="/about">About</button>
-  <button mat-button routerLink="/contact">Contact</button>
-  <button mat-icon-button [matMenuTriggerFor]="menu">
+  <button mat-button routerLink="/posts">Posts</button>
+  @if(!authService.isLoggedIn) {
+  <button mat-flat-button color="accent" style="margin-left: 3px;" (click)="authService.login()">Sign In</button>
+  }
+  @else {
+  <button mat-icon-button style="margin-left: 3px;" [matMenuTriggerFor]="menu">
     <mat-icon>account_circle</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="authService.login()">Login</button>
+    <button mat-menu-item *ngIf="authService.user?.profile?.email">{{authService.user?.profile?.email}}</button>
     <button mat-menu-item (click)="authService.logout()">Logout</button>
   </mat-menu>
+  }
 </mat-toolbar>

@@ -1,0 +1,27 @@
+.card {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+}
+
+.card-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+button[mat-fab] {
+  min-width: 40px;
+  min-height: 40px;
+  margin-left: 10px;
+}

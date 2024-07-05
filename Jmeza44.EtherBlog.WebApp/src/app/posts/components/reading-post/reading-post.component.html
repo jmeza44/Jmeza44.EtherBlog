@@ -1,0 +1,23 @@
+<div class="container-xl" style="margin-top: 2rem; margin-bottom: 2rem;padding: 1rem;">
+  <div class="row justify-content-between" style="margin-bottom: 2rem;">
+    <a [routerLink]="['/posts']" class="col-1" mat-flat-button color="accent"><mat-icon>arrow_back</mat-icon> Go
+      back</a>
+    <a *ngIf="post && isMyPost(post.createdBy)" [routerLink]="['/', 'posts', 'edit', post.id]" class="col-1"
+      mat-flat-button color="primary"><mat-icon> border_color</mat-icon> Edit</a>
+  </div>
+  <div class="row justify-content-center" *ngIf="post">
+    <h1 class="col-8">{{post.title}}</h1>
+    <span class="col-8">Created by: {{ post.createdBy }} | Created At: {{ post.createdAt | date}}</span>
+    <hr class="col-8">
+    <markdown class="col-8">
+      {{post.content}}
+    </markdown>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-8" *ngIf="post">
+      <ether-comments-list [comments]="comments" (commentAdded)="onCommentDeleted()"></ether-comments-list>
+      <hr>
+      <ether-add-comment [postId]="post.id" (commentAdded)="onCommentAdded()"></ether-add-comment>
+    </div>
+  </div>
+</div>

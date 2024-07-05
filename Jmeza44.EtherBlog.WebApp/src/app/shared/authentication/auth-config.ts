@@ -5,7 +5,7 @@ export const oidcConfig: UserManagerSettings = {
   client_id: 'EtherBlogWebApp',
   redirect_uri: 'http://localhost:4200/sign-in-callback',
   response_type: 'code',
-  scope: 'openid profile email ether-blog-api.read ether-blog-api.write',
+  scope: 'openid profile email role ether-blog-api.read ether-blog-api.write',
   post_logout_redirect_uri: 'http://localhost:4200/sign-out-callback',
   silent_redirect_uri: 'http://localhost:4200/silent-renew.html',
   automaticSilentRenew: true,

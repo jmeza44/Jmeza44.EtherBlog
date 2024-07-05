@@ -1,0 +1,55 @@
+﻿@page
+@model Jmeza44.EtherBlog.IdentityServer.Pages.Account.SignUp.SignUpModel
+@{
+}
+
+<div class="login-page">
+    <div class="lead">
+        <h1>Sign Up</h1>
+        <p>Choose how to sign up to the site</p>
+        <p>Already have an account? <a href="/Account/Login">Login</a></p>
+    </div>
+
+    <partial name="_ValidationSummary" />
+
+    <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Local Account</h2>
+                    </div>
+
+                    <div class="card-body">
+                        <form asp-page="/Account/SignUp/Index">
+                            <input type="hidden" asp-for="Input.ReturnUrl" />
+
+                        <div class="form-group">
+                            <label asp-for="Input.Username"></label>
+                            <input class="form-control" asp-for="Input.Username" />
+                            <span asp-validation-for="Input.Username" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Input.Email"></label>
+                            <input class="form-control" asp-for="Input.Email" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Input.Password"></label>
+                            <input type="password" class="form-control" asp-for="Input.Password" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Input.ConfirmPassword"></label>
+                            <input type="password" class="form-control" asp-for="Input.ConfirmPassword" />
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+
+                            <button class="btn btn-primary" name="Input.Button" value="login">Confirm</button>
+                            <button class="btn btn-secondary" name="Input.Button" value="cancel">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>

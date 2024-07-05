@@ -1,0 +1,25 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <h5 class="card-title">{{ comment.createdBy }}</h5>
+    <button *ngIf="isMine(comment.createdBy) && !isEditing" mat-fab aria-label="Edit comment" (click)="onEdit()">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button *ngIf="isMine(comment.createdBy) && isEditing" mat-fab aria-label="Save changes" (click)="onSave()">
+      <mat-icon>save</mat-icon>
+    </button>
+    <button *ngIf="authService.isAdmin" mat-fab aria-label="Delete comment" (click)="onDelete(comment.id)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+      <textarea *ngIf="isEditing" [(ngModel)]="editedContent" class="form-control"></textarea>
+      <ng-container *ngIf="!isEditing">{{ comment.content }}</ng-container>
+    </p>
+    <p class="card-text">
+      <small class="text-muted">Created At: {{ comment.createdAt | date }}</small>
+      <small class="text-muted" *ngIf="comment.lastModifiedByAt !== null"> Edited At: {{ comment.lastModifiedByAt | date
+        }}</small>
+    </p>
+  </div>
+</div>

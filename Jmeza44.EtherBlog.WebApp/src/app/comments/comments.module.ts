@@ -1,17 +1,27 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { SharedModule } from '../shared/shared.module';
 
 import { CommentsRoutingModule } from './comments-routing.module';
-import { CommentsComponent } from './comments.component';
-
+import { AddCommentComponent } from './components/add-comment/add-comment.component';
+import { CommentsListComponent } from './components/comments-list/comments-list.component';
+import { CommentComponent } from './components/comment/comment.component';
 
 @NgModule({
   declarations: [
-    CommentsComponent
+    CommentsListComponent,
+    AddCommentComponent,
+    CommentComponent
   ],
   imports: [
     CommonModule,
-    CommentsRoutingModule
+    CommentsRoutingModule,
+    SharedModule
+  ],
+  exports: [
+    CommentsListComponent,
+    AddCommentComponent,
+    CommentComponent
   ]
 })
-export class CommentsModule { }
+export class CommentsModule {}

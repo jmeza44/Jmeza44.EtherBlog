@@ -14,8 +14,7 @@ namespace Jmeza44.EtherBlog.Application.Main.PostRequest.Commands.EditPost
                 .MaximumLength(100).WithMessage("Title cannot be longer than 100 characters.");
 
             RuleFor(command => command.Content)
-                .NotEmpty().WithMessage("Content is required.")
-                .MaximumLength(1000).WithMessage("Content cannot be longer than 1000 characters.");
+                .NotEmpty().WithMessage("Content is required.");
         }
     }
 }

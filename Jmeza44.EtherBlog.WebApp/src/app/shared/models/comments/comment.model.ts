@@ -5,5 +5,5 @@ export interface Comment {
   createdBy?: string;
   createdAt?: Date;
   lastModifiedBy?: string;
-  lastModifiedAt?: Date;
+  lastModifiedByAt?: Date;
 }

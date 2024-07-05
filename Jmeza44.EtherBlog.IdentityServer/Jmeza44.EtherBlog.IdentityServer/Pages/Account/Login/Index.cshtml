@@ -1,5 +1,5 @@
 @page
-@model IdentityServer.Pages.Login.Index
+@model Jmeza44.EtherBlog.IdentityServer.Pages.Account.Login.LoginModel
 
 @using IdentityServer.Models;
 @using Microsoft.AspNetCore.Authentication;
@@ -7,7 +7,8 @@
 <div class="login-page">
     <div class="lead">
         <h1>Login</h1>
-        <p>Choose how to login to the <b>@Model.TenantName</b></p>
+        <p>Choose how to login to the site</p>
+        <p>Don't have an account? <a asp-page="/Account/SignUp/Index" asp-route-returnurl="@(Model.Input.ReturnUrl)">Sign Up</a></p>
     </div>
 
     <partial name="_ValidationSummary" />

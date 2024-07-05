@@ -1,0 +1,23 @@
+<div class="landing-container mat-elevation-z8">
+  <div class="landing-content">
+    <div class="text-content">
+      <h1>Welcome to Our Blog Site</h1>
+      <p>
+        Discover amazing articles, write your own stories, and engage with a vibrant community.
+        Whether you're here to read, write, or comment, we have something for everyone.
+      </p>
+      <div class="action-buttons">
+        <button *ngIf="!authService.isLoggedIn" mat-raised-button color="primary" (click)="authService.login()">Sign
+          In</button>
+        <button *ngIf="authService.isLoggedIn" mat-raised-button color="accent" routerLink="/posts">Start
+          Reading</button>
+        <button *ngIf="authService.isLoggedIn && authService.isEditor" mat-raised-button color="primary"
+          routerLink="/posts/mine">My Published
+          Posts</button>
+      </div>
+    </div>
+    <div class="image-content">
+      <img src="assets/img/landing-image.jpg" alt="Blog Image" class="landing-image">
+    </div>
+  </div>
+</div>

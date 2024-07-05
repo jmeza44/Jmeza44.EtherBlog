@@ -3,17 +3,18 @@ using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Stores;
 using IdentityServer.Models;
+using IdentityServer.Pages;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace IdentityServer.Pages.Login
+namespace Jmeza44.EtherBlog.IdentityServer.Pages.Account.Login
 {
     [SecurityHeaders]
     [AllowAnonymous]
-    public class Index : PageModel
+    public class LoginModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -23,12 +24,11 @@ namespace IdentityServer.Pages.Login
         private readonly IIdentityProviderStore _identityProviderStore;
 
         public ViewModel View { get; set; }
-        public string TenantName { get; set; }
 
         [BindProperty]
         public InputModel Input { get; set; }
 
-        public Index(
+        public LoginModel(
             IIdentityServerInteractionService interaction,
             IAuthenticationSchemeProvider schemeProvider,
             IIdentityProviderStore identityProviderStore,

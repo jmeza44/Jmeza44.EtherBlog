@@ -14,10 +14,12 @@ namespace Jmeza44.EtherBlog.Application.Main.PostRequest.Commands.EditPost
         public class EditPostCommandHandler : IRequestHandler<EditPostCommand, bool>
         {
             private readonly IApplicationDbContext _dbContext;
+            private readonly ICurrentUserService _currentUserService;
 
-            public EditPostCommandHandler(IApplicationDbContext dbContext)
+            public EditPostCommandHandler(IApplicationDbContext dbContext, ICurrentUserService currentUserService)
             {
                 _dbContext = dbContext;
+                _currentUserService = currentUserService;
             }
 
             public async Task<bool> Handle(EditPostCommand request, CancellationToken cancellationToken)
@@ -26,6 +28,16 @@ namespace Jmeza44.EtherBlog.Application.Main.PostRequest.Commands.EditPost
                 if (post == null)
                 {
                     throw new NotFoundException(nameof(Post), request.Id);
+                }
+
+                var currentUser = await _currentUserService.GetCurrentUserEmailAsync();
+                if (currentUser == null)
+                {
+                    throw new UnresolvedIdentityException();
+                }
+                if (!currentUser.Equals(post.CreatedBy))
+                {
+                    throw new AccessLevelViolationException();
                 }
 
                 post.Title = request.Title;
